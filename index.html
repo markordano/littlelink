@@ -11,7 +11,6 @@
       padding: 0;
       box-sizing: border-box;
     }
-
     body {
       background: #000;
       color: white;
@@ -20,7 +19,6 @@
       overflow: hidden;
       user-select: none;
     }
-
     #bg-video {
       position: fixed;
       top: 0;
@@ -30,7 +28,6 @@
       object-fit: cover;
       z-index: -1;
     }
-
     #overlay {
       position: fixed;
       inset: 0;
@@ -43,16 +40,13 @@
       cursor: pointer;
       transition: opacity 0.55s ease;
     }
-
     #overlay h2 {
-      font-size: 1.15rem;
+      font-size: 1.4rem;
       font-weight: 400;
-      letter-spacing: 0.8px;
-      text-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
+      letter-spacing: 1.2px;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
       color: #fff;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-
     .page {
       position: relative;
       z-index: 1;
@@ -61,12 +55,10 @@
       pointer-events: none;
       transition: opacity 0.55s ease;
     }
-
     .page.show {
       opacity: 1;
       pointer-events: auto;
     }
-
     /* ========== VOLUME ========== */
     .volume-control {
       position: fixed;
@@ -85,12 +77,10 @@
       overflow: hidden;
       width: 42px;
     }
-
     .volume-control:hover {
       width: 165px;
       padding-right: 14px;
     }
-
     .volume-btn {
       width: 20px;
       height: 20px;
@@ -100,14 +90,12 @@
       cursor: pointer;
       flex-shrink: 0;
     }
-
     .volume-btn svg {
       width: 18px;
       height: 18px;
       fill: white;
       display: block;
     }
-
     .volume-slider {
       width: 0;
       opacity: 0;
@@ -116,12 +104,10 @@
       display: flex;
       align-items: center;
     }
-
     .volume-control:hover .volume-slider {
       width: 105px;
       opacity: 1;
     }
-
     .volume-slider input[type="range"] {
       -webkit-appearance: none;
       appearance: none;
@@ -132,7 +118,6 @@
       outline: none;
       cursor: pointer;
     }
-
     .volume-slider input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
@@ -143,7 +128,6 @@
       cursor: pointer;
       box-shadow: 0 0 6px rgba(0,0,0,0.5);
     }
-
     .volume-slider input[type="range"]::-moz-range-thumb {
       width: 13px;
       height: 13px;
@@ -152,7 +136,6 @@
       cursor: pointer;
       border: none;
     }
-
     /* Views */
     .views {
       position: fixed;
@@ -166,7 +149,6 @@
       z-index: 30;
       text-shadow: 0 0 8px black;
     }
-
     /* Center */
     .center {
       position: absolute;
@@ -181,15 +163,13 @@
       max-width: 420px;
       padding: 0 20px;
     }
-
     .username {
       font-size: 2.4rem;
       font-weight: 500;
       letter-spacing: 1px;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
       text-shadow: 0 2px 12px rgba(0,0,0,0.8);
     }
-
     .motto {
       font-size: 1.05rem;
       opacity: 0.9;
@@ -197,8 +177,7 @@
       letter-spacing: 0.5px;
       text-shadow: 0 1px 8px black;
     }
-
-    /* Profile pill - matched to your photo */
+    /* Profile pill */
     .profile-pill {
       background: rgba(15, 15, 15, 0.78);
       backdrop-filter: blur(18px);
@@ -209,25 +188,46 @@
       display: flex;
       align-items: center;
       gap: 11px;
-      margin: 0 auto 22px;
+      margin-bottom: 22px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
       min-width: 240px;
     }
-
+    .avatar-wrap {
+      position: relative;
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
+    }
     .avatar {
       width: 46px;
       height: 46px;
       border-radius: 50%;
       object-fit: cover;
       border: 1.5px solid rgba(255, 255, 255, 0.12);
-      flex-shrink: 0;
+      display: block;
     }
-
+    /* Red prohibition icon over avatar */
+    .avatar-badge {
+      position: absolute;
+      bottom: -2px;
+      left: -2px;
+      width: 18px;
+      height: 18px;
+      background: #e53935;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #111;
+    }
+    .avatar-badge svg {
+      width: 10px;
+      height: 10px;
+    }
     .pill-info {
       text-align: left;
       line-height: 1.3;
     }
-
     .pill-name {
       font-size: 1rem;
       font-weight: 600;
@@ -235,7 +235,6 @@
       align-items: center;
       gap: 5px;
     }
-
     .pill-name .badge {
       font-size: 0.78rem;
       opacity: 0.75;
@@ -244,27 +243,22 @@
       align-items: center;
       gap: 3px;
     }
-
     .leaf-icon {
       width: 13px;
       height: 13px;
       vertical-align: -1px;
-      display: inline-block;
     }
-
     .pill-status {
       font-size: 0.8rem;
       opacity: 0.7;
       margin-top: 1px;
     }
-
     /* Socials */
     .socials {
       display: flex;
       gap: 16px;
       justify-content: center;
     }
-
     .socials a {
       width: 42px;
       height: 42px;
@@ -279,12 +273,10 @@
       text-decoration: none;
       transition: all 0.2s ease;
     }
-
     .socials a:hover {
       background: rgba(255, 255, 255, 0.15);
       transform: translateY(-3px);
     }
-
     .socials svg {
       width: 18px;
       height: 18px;
@@ -293,7 +285,6 @@
   </style>
 </head>
 <body>
-
   <video id="bg-video" loop muted playsinline>
     <source src="au.mp4" type="video/mp4">
   </video>
@@ -303,7 +294,6 @@
   </div>
 
   <div class="page" id="main-page">
-
     <!-- Volume -->
     <div class="volume-control">
       <div class="volume-btn" id="volumeBtn">
@@ -329,15 +319,27 @@
 
     <div class="center">
       <div class="username">xen</div>
+      <div class="motto">my honor</div>
 
       <div class="profile-pill">
-        <img src="avatar.png" alt="avatar" class="avatar">
+        <div class="avatar-wrap">
+          <img src="avatar.png" alt="avatar" class="avatar">
+          <div class="avatar-badge">
+            <!-- red prohibition icon -->
+            <svg viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" fill="#e53935"/>
+              <rect x="6" y="10.5" width="12" height="3" rx="1.5" fill="white"/>
+            </svg>
+          </div>
+        </div>
         <div class="pill-info">
           <div class="pill-name">
             8kbf
-            <span class="badge"><img src="leaf.png" alt="" class="leaf-icon"> 505</span>
+            <span class="badge">
+              <img src="leaf.png" alt="" class="leaf-icon"> 505
+            </span>
           </div>
-          <div class="pill-status">online</div>
+          <div class="pill-status">currently doing nothing</div>
         </div>
       </div>
 
@@ -345,15 +347,12 @@
         <a href="https://instagram.com/youruser" target="_blank" title="Instagram">
           <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
         </a>
-
         <a href="https://tiktok.com/@youruser" target="_blank" title="TikTok">
           <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/></svg>
         </a>
-
         <a href="https://discord.com/users/yourid" target="_blank" title="Discord">
           <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
         </a>
-
         <a href="https://youtube.com/@xenflarek" target="_blank" title="YouTube">
           <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
         </a>
