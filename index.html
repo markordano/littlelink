@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>xen</title>
   <meta name="theme-color" content="#000000">
-
   <style>
     * {
       margin: 0;
@@ -16,11 +15,12 @@
     body {
       background: #000;
       color: white;
-      font-family: sans-serif;
+      font-family: system-ui, -apple-system, sans-serif;
       min-height: 100vh;
       overflow: hidden;
     }
 
+    /* Background video – starts paused */
     #bg-video {
       position: fixed;
       top: 0;
@@ -31,31 +31,28 @@
       z-index: -1;
     }
 
-    /* Click to enter overlay */
+    /* Click-to-enter overlay */
     #overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(8px);
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(10px);
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 10;
+      z-index: 20;
       cursor: pointer;
       transition: opacity 0.6s ease;
     }
 
     #overlay h2 {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       font-weight: 400;
-      letter-spacing: 2px;
-      text-shadow: 0 0 10px black;
+      letter-spacing: 3px;
+      text-shadow: 0 0 12px black;
     }
 
-    /* Main content (hidden at start) */
+    /* Main content – hidden until click */
     .content {
       position: relative;
       z-index: 1;
@@ -66,8 +63,9 @@
       align-items: center;
       text-align: center;
       opacity: 0;
-      transition: opacity 0.6s ease;
       pointer-events: none;
+      transition: opacity 0.6s ease;
+      padding: 20px;
     }
 
     .content.show {
@@ -75,49 +73,120 @@
       pointer-events: auto;
     }
 
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
-      text-shadow: 0 0 10px black;
+    /* Profile card (closer to the guns.lol / image style) */
+    .profile {
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 28px 36px;
+      max-width: 340px;
+      width: 100%;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
     }
 
-    p {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-      text-shadow: 0 0 8px black;
+    .avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      margin-bottom: 14px;
     }
 
-    .button {
-      display: inline-block;
-      padding: 12px 28px;
-      background: #ff0000;
+    .username {
+      font-size: 1.7rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .status {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      margin-bottom: 6px;
+    }
+
+    .location {
+      font-size: 0.85rem;
+      opacity: 0.7;
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    /* Social icons row */
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .socials a {
       color: white;
+      opacity: 0.9;
+      transition: opacity 0.2s, transform 0.2s;
+      font-size: 1.5rem;
       text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 1.1rem;
+    }
+
+    .socials a:hover {
+      opacity: 1;
+      transform: scale(1.15);
+    }
+
+    /* Optional view count style */
+    .views {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      font-size: 0.85rem;
+      opacity: 0.6;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
   </style>
 </head>
-
 <body>
-  <video id="bg-video" autoplay loop muted playsinline>
+
+  <!-- Background video – NO autoplay -->
+  <video id="bg-video" loop muted playsinline>
     <source src="au.mp4" type="video/mp4">
   </video>
 
-  <!-- Click to enter screen -->
+  <!-- Click to enter -->
   <div id="overlay">
     <h2>click to enter...</h2>
   </div>
 
-  <!-- Main content -->
+  <!-- Main profile content -->
   <div class="content" id="main-content">
-    <h1>xen</h1>
-    <p>Meine Ehre Heisst Treue</p>
-    
-    <a class="button" href="https://youtube.com/@xenflarek" target="_blank">
-      YouTube
-    </a>
+    <div class="profile">
+      <!-- Replace the avatar src with your own image -->
+      <img src="https://i.imgur.com/your-avatar.png" alt="avatar" class="avatar">
+
+      <div class="username">xen</div>
+      <div class="status">currently doing nothing</div>
+      <div class="location">📍 Canada</div>
+
+      <div class="socials">
+        <!-- Instagram -->
+        <a href="https://instagram.com/youruser" target="_blank" title="Instagram">📷</a>
+        <!-- TikTok -->
+        <a href="https://tiktok.com/@youruser" target="_blank" title="TikTok">🎵</a>
+        <!-- Discord (or any other) -->
+        <a href="https://discord.com/users/yourid" target="_blank" title="Discord">💬</a>
+        <!-- YouTube – xenflarek -->
+        <a href="https://youtube.com/@xenflarek" target="_blank" title="YouTube">▶️</a>
+      </div>
+    </div>
+
+    <!-- Optional view counter (just visual for now) -->
+    <div class="views">👁 1,036</div>
   </div>
 
   <script>
@@ -125,18 +194,23 @@
     const overlay = document.getElementById('overlay');
     const content = document.getElementById('main-content');
 
+    // Start completely paused
+    video.pause();
     video.volume = 0.25;
 
     overlay.addEventListener('click', () => {
-      // Fade out the overlay
+      // Fade out overlay
       overlay.style.opacity = '0';
-      
+
       setTimeout(() => {
         overlay.style.display = 'none';
         content.classList.add('show');
-        
-        // Start audio
+
+        // Now start the video + unmute
         video.muted = false;
+        video.play().catch(err => {
+          console.log('Play failed:', err);
+        });
       }, 600);
     });
   </script>
