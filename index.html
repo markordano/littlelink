@@ -6,10 +6,6 @@
   <title>xen</title>
   <meta name="theme-color" content="#000000">
 
-  <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/brands.css">
-
   <style>
     * {
       margin: 0;
@@ -66,6 +62,22 @@
       border-radius: 8px;
       font-weight: bold;
       font-size: 1.1rem;
+      margin-bottom: 25px;
+    }
+
+    .volume-control {
+      margin-top: 20px;
+      background: rgba(0,0,0,0.6);
+      padding: 10px 18px;
+      border-radius: 30px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .volume-control input {
+      width: 120px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -79,17 +91,33 @@
     <h1>xen</h1>
     <p>Meine Ehre Heisst Treue</p>
     
-    <a class="button" href="https://youtube.com/@yourchannel" target="_blank">
+    <a class="button" href="https://youtube.com/@xenflarek" target="_blank">
       YouTube
     </a>
+
+    <div class="volume-control">
+      <span>🔊</span>
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="0.25">
+    </div>
   </div>
 
   <script>
-    // Try to unmute after user interacts
+    const video = document.getElementById('bg-video');
+    const volumeSlider = document.getElementById('volume');
+
+    // Set starting volume low
+    video.volume = 0.25;
+
+    // Unmute on first click anywhere
     document.body.addEventListener('click', () => {
-      const video = document.getElementById('bg-video');
       video.muted = false;
     }, { once: true });
+
+    // Volume slider control
+    volumeSlider.addEventListener('input', () => {
+      video.volume = volumeSlider.value;
+      video.muted = false;
+    });
   </script>
 </body>
 </html>
