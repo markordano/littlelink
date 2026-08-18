@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="theme-dark" lang="en">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,12 +15,13 @@
     body {
       background: #000;
       color: white;
-      font-family: system-ui, -apple-system, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       min-height: 100vh;
       overflow: hidden;
+      user-select: none;
     }
 
-    /* Background video – starts paused */
+    /* Background video - starts completely paused */
     #bg-video {
       position: fixed;
       top: 0;
@@ -31,129 +32,226 @@
       z-index: -1;
     }
 
-    /* Click-to-enter overlay */
+    /* Click to enter overlay */
     #overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.65);
-      backdrop-filter: blur(10px);
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(12px);
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 20;
+      z-index: 50;
       cursor: pointer;
-      transition: opacity 0.6s ease;
+      transition: opacity 0.55s ease;
     }
 
     #overlay h2 {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       font-weight: 400;
       letter-spacing: 3px;
-      text-shadow: 0 0 12px black;
+      text-shadow: 0 0 15px black;
     }
 
-    /* Main content – hidden until click */
-    .content {
+    /* ========== MAIN LAYOUT ========== */
+    .page {
       position: relative;
       z-index: 1;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.6s ease;
-      padding: 20px;
+      transition: opacity 0.55s ease;
     }
 
-    .content.show {
+    .page.show {
       opacity: 1;
       pointer-events: auto;
     }
 
-    /* Profile card (closer to the guns.lol / image style) */
-    .profile {
-      background: rgba(0, 0, 0, 0.55);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      padding: 28px 36px;
-      max-width: 340px;
-      width: 100%;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-    }
-
-    .avatar {
-      width: 90px;
-      height: 90px;
+    /* Volume button (top left) */
+    .volume-btn {
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      width: 38px;
+      height: 38px;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid rgba(255, 255, 255, 0.2);
-      margin-bottom: 14px;
-    }
-
-    .username {
-      font-size: 1.7rem;
-      font-weight: 600;
-      margin-bottom: 4px;
-      letter-spacing: 0.5px;
-    }
-
-    .status {
-      font-size: 0.95rem;
-      opacity: 0.85;
-      margin-bottom: 6px;
-    }
-
-    .location {
-      font-size: 0.85rem;
-      opacity: 0.7;
-      margin-bottom: 22px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 4px;
+      cursor: pointer;
+      z-index: 30;
+      transition: background 0.2s;
+    }
+
+    .volume-btn:hover {
+      background: rgba(0, 0, 0, 0.65);
+    }
+
+    .volume-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: white;
+    }
+
+    /* Views counter (bottom left) */
+    .views {
+      position: fixed;
+      bottom: 18px;
+      left: 18px;
+      font-size: 0.85rem;
+      opacity: 0.75;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 30;
+      text-shadow: 0 0 8px black;
+    }
+
+    /* Center content */
+    .center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+      max-width: 420px;
+      padding: 0 20px;
+    }
+
+    /* Floating username */
+    .username {
+      font-size: 2.4rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+    }
+
+    /* Small orange circle (like in the screenshot) */
+    .accent-circle {
+      width: 28px;
+      height: 28px;
+      background: #f97316;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      box-shadow: 0 0 15px rgba(249, 115, 22, 0.5);
+    }
+
+    .accent-circle svg {
+      width: 14px;
+      height: 14px;
+      fill: white;
+    }
+
+    /* Location */
+    .location {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      text-shadow: 0 1px 6px black;
+    }
+
+    /* Profile pill (the dark glass card) */
+    .profile-pill {
+      background: rgba(20, 20, 20, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      min-width: 260px;
+    }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      flex-shrink: 0;
+    }
+
+    .pill-info {
+      text-align: left;
+      line-height: 1.25;
+    }
+
+    .pill-name {
+      font-size: 1.05rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-name .badge {
+      font-size: 0.75rem;
+      opacity: 0.7;
+      font-weight: 400;
+    }
+
+    .pill-status {
+      font-size: 0.82rem;
+      opacity: 0.75;
+      margin-top: 2px;
     }
 
     /* Social icons row */
     .socials {
       display: flex;
+      gap: 16px;
       justify-content: center;
-      gap: 18px;
-      flex-wrap: wrap;
     }
 
     .socials a {
+      width: 42px;
+      height: 42px;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: white;
-      opacity: 0.9;
-      transition: opacity 0.2s, transform 0.2s;
-      font-size: 1.5rem;
       text-decoration: none;
+      transition: all 0.2s ease;
     }
 
     .socials a:hover {
-      opacity: 1;
-      transform: scale(1.15);
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-3px);
     }
 
-    /* Optional view count style */
-    .views {
-      position: absolute;
-      bottom: 20px;
-      left: 20px;
-      font-size: 0.85rem;
-      opacity: 0.6;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+    .socials svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
     }
   </style>
 </head>
 <body>
 
-  <!-- Background video – NO autoplay -->
+  <!-- Background video - NO autoplay -->
   <video id="bg-video" loop muted playsinline>
     <source src="au.mp4" type="video/mp4">
   </video>
@@ -163,55 +261,119 @@
     <h2>click to enter...</h2>
   </div>
 
-  <!-- Main profile content -->
-  <div class="content" id="main-content">
-    <div class="profile">
-      <!-- Replace the avatar src with your own image -->
-      <img src="https://i.imgur.com/your-avatar.png" alt="avatar" class="avatar">
+  <!-- Main page content -->
+  <div class="page" id="main-page">
 
-      <div class="username">xen</div>
-      <div class="status">currently doing nothing</div>
-      <div class="location">📍 Canada</div>
-
-      <div class="socials">
-        <!-- Instagram -->
-        <a href="https://instagram.com/youruser" target="_blank" title="Instagram">📷</a>
-        <!-- TikTok -->
-        <a href="https://tiktok.com/@youruser" target="_blank" title="TikTok">🎵</a>
-        <!-- Discord (or any other) -->
-        <a href="https://discord.com/users/yourid" target="_blank" title="Discord">💬</a>
-        <!-- YouTube – xenflarek -->
-        <a href="https://youtube.com/@xenflarek" target="_blank" title="YouTube">▶️</a>
-      </div>
+    <!-- Volume button -->
+    <div class="volume-btn" id="volumeBtn" title="Toggle mute">
+      <!-- Speaker icon (unmuted) -->
+      <svg id="icon-unmuted" viewBox="0 0 24 24">
+        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+      </svg>
+      <!-- Muted icon (hidden by default) -->
+      <svg id="icon-muted" viewBox="0 0 24 24" style="display:none">
+        <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+      </svg>
     </div>
 
-    <!-- Optional view counter (just visual for now) -->
-    <div class="views">👁 1,036</div>
+    <!-- Views -->
+    <div class="views">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+      </svg>
+      1,036
+    </div>
+
+    <!-- Center content -->
+    <div class="center">
+      <div class="username">xen</div>
+
+      <div class="accent-circle">
+        <!-- small icon inside orange circle -->
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      </div>
+
+      <div class="location">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#ef4444">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+        </svg>
+        Canada
+      </div>
+
+      <!-- Profile pill -->
+      <div class="profile-pill">
+        <!-- Put your real avatar here -->
+        <img src="https://i.imgur.com/your-avatar.png" alt="avatar" class="avatar">
+        
+        <div class="pill-info">
+          <div class="pill-name">
+            8kbf
+            <span class="badge">🌿 505</span>
+          </div>
+          <div class="pill-status">currently doing nothing</div>
+        </div>
+      </div>
+
+      <!-- Social icons -->
+      <div class="socials">
+        <!-- Instagram -->
+        <a href="https://instagram.com/youruser" target="_blank" title="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+
+        <!-- TikTok -->
+        <a href="https://tiktok.com/@youruser" target="_blank" title="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/></svg>
+        </a>
+
+        <!-- Discord -->
+        <a href="https://discord.com/users/yourid" target="_blank" title="Discord">
+          <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+        </a>
+
+        <!-- YouTube (xenflarek) -->
+        <a href="https://youtube.com/@xenflarek" target="_blank" title="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+      </div>
+    </div>
   </div>
 
   <script>
     const video = document.getElementById('bg-video');
     const overlay = document.getElementById('overlay');
-    const content = document.getElementById('main-content');
+    const page = document.getElementById('main-page');
+    const volumeBtn = document.getElementById('volumeBtn');
+    const iconUnmuted = document.getElementById('icon-unmuted');
+    const iconMuted = document.getElementById('icon-muted');
 
-    // Start completely paused
-    video.pause();
-    video.volume = 0.25;
+    let isMuted = false;
+    video.volume = 0.3;
+    video.pause(); // force pause
 
+    // Click to enter
     overlay.addEventListener('click', () => {
-      // Fade out overlay
       overlay.style.opacity = '0';
-
       setTimeout(() => {
         overlay.style.display = 'none';
-        content.classList.add('show');
-
-        // Now start the video + unmute
+        page.classList.add('show');
         video.muted = false;
-        video.play().catch(err => {
-          console.log('Play failed:', err);
-        });
-      }, 600);
+        video.play().catch(() => {});
+      }, 550);
+    });
+
+    // Volume toggle
+    volumeBtn.addEventListener('click', () => {
+      isMuted = !isMuted;
+      video.muted = isMuted;
+
+      if (isMuted) {
+        iconUnmuted.style.display = 'none';
+        iconMuted.style.display = 'block';
+      } else {
+        iconUnmuted.style.display = 'block';
+        iconMuted.style.display = 'none';
+      }
     });
   </script>
 </body>
