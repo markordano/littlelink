@@ -306,7 +306,7 @@
         </svg>
       </div>
       <div class="volume-slider">
-        <input type="range" id="volumeRange" min="0" max="1" step="0.01" value="0.12">
+        <input type="range" id="volumeRange" min="0" max="1" step="0.01" value="0.10">
       </div>
     </div>
 
@@ -369,8 +369,8 @@
     const iconUnmuted = document.getElementById('icon-unmuted');
     const iconMuted = document.getElementById('icon-muted');
 
-    video.volume = 0.12;
-    volumeRange.value = 0.12;
+    video.volume = 0.10;
+    volumeRange.value = 0.10;
     video.pause();
 
     overlay.addEventListener('click', () => {
@@ -394,7 +394,7 @@
       e.stopPropagation();
       if (video.muted || video.volume === 0) {
         video.muted = false;
-        video.volume = volumeRange.value || 0.12;
+        video.volume = volumeRange.value || 0.10;
         iconUnmuted.style.display = 'block';
         iconMuted.style.display = 'none';
       } else {
