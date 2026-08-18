@@ -44,14 +44,15 @@
       transition: opacity 0.55s ease;
     }
 
-#overlay h2 {
-  font-size: 1.15rem;          /* closer to the example size */
-  font-weight: 400;
-  letter-spacing: 0.8px;       /* much tighter, matches the first photo */
-  text-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
-  color: #fff;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
+    #overlay h2 {
+      font-size: 1.15rem;
+      font-weight: 400;
+      letter-spacing: 0.8px;
+      text-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
+      color: #fff;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
     .page {
       position: relative;
       z-index: 1;
@@ -208,7 +209,7 @@
       display: flex;
       align-items: center;
       gap: 11px;
-      margin-bottom: 22px;
+      margin: 0 auto 22px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
       min-width: 240px;
     }
@@ -239,6 +240,16 @@
       font-size: 0.78rem;
       opacity: 0.75;
       font-weight: 400;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .leaf-icon {
+      width: 13px;
+      height: 13px;
+      vertical-align: -1px;
+      display: inline-block;
     }
 
     .pill-status {
@@ -319,18 +330,14 @@
     <div class="center">
       <div class="username">xen</div>
 
-      <div class="motto">
-        Meine Ehre Heisst Treue
-      </div>
-
       <div class="profile-pill">
         <img src="avatar.png" alt="avatar" class="avatar">
         <div class="pill-info">
           <div class="pill-name">
             8kbf
-            <span class="badge">🌿 505</span>
+            <span class="badge"><img src="leaf.png" alt="" class="leaf-icon"> 505</span>
           </div>
-          <div class="pill-status">praising Hitler</div>
+          <div class="pill-status">online</div>
         </div>
       </div>
 
