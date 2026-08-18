@@ -18,10 +18,6 @@
       color: white;
       font-family: sans-serif;
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
       overflow: hidden;
     }
 
@@ -35,10 +31,48 @@
       z-index: -1;
     }
 
+    /* Click to enter overlay */
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      cursor: pointer;
+      transition: opacity 0.6s ease;
+    }
+
+    #overlay h2 {
+      font-size: 1.8rem;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px black;
+    }
+
+    /* Main content (hidden at start) */
     .content {
       position: relative;
       z-index: 1;
-      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+    }
+
+    .content.show {
+      opacity: 1;
+      pointer-events: auto;
     }
 
     h1 {
@@ -62,22 +96,6 @@
       border-radius: 8px;
       font-weight: bold;
       font-size: 1.1rem;
-      margin-bottom: 25px;
-    }
-
-    .volume-control {
-      margin-top: 20px;
-      background: rgba(0,0,0,0.6);
-      padding: 10px 18px;
-      border-radius: 30px;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .volume-control input {
-      width: 120px;
-      cursor: pointer;
     }
   </style>
 </head>
@@ -87,36 +105,39 @@
     <source src="au.mp4" type="video/mp4">
   </video>
 
-  <div class="content">
+  <!-- Click to enter screen -->
+  <div id="overlay">
+    <h2>click to enter...</h2>
+  </div>
+
+  <!-- Main content -->
+  <div class="content" id="main-content">
     <h1>xen</h1>
     <p>Meine Ehre Heisst Treue</p>
     
     <a class="button" href="https://youtube.com/@xenflarek" target="_blank">
       YouTube
     </a>
-
-    <div class="volume-control">
-      <span>🔊</span>
-      <input type="range" id="volume" min="0" max="1" step="0.01" value="0.25">
-    </div>
   </div>
 
   <script>
     const video = document.getElementById('bg-video');
-    const volumeSlider = document.getElementById('volume');
+    const overlay = document.getElementById('overlay');
+    const content = document.getElementById('main-content');
 
-    // Set starting volume low
     video.volume = 0.25;
 
-    // Unmute on first click anywhere
-    document.body.addEventListener('click', () => {
-      video.muted = false;
-    }, { once: true });
-
-    // Volume slider control
-    volumeSlider.addEventListener('input', () => {
-      video.volume = volumeSlider.value;
-      video.muted = false;
+    overlay.addEventListener('click', () => {
+      // Fade out the overlay
+      overlay.style.opacity = '0';
+      
+      setTimeout(() => {
+        overlay.style.display = 'none';
+        content.classList.add('show');
+        
+        // Start audio
+        video.muted = false;
+      }, 600);
     });
   </script>
 </body>
