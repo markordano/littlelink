@@ -206,23 +206,24 @@
       border: 1.5px solid rgba(255, 255, 255, 0.12);
       display: block;
     }
-    /* Red prohibition icon over avatar */
+    /* Red prohibition icon – matched to your photo */
     .avatar-badge {
       position: absolute;
-      bottom: -2px;
-      left: -2px;
-      width: 18px;
-      height: 18px;
+      bottom: -3px;
+      left: -3px;
+      width: 20px;
+      height: 20px;
       background: #e53935;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 2px solid #111;
+      border: 2.5px solid #0d0d0d;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.5);
     }
     .avatar-badge svg {
-      width: 10px;
-      height: 10px;
+      width: 12px;
+      height: 12px;
     }
     .pill-info {
       text-align: left;
@@ -305,7 +306,7 @@
         </svg>
       </div>
       <div class="volume-slider">
-        <input type="range" id="volumeRange" min="0" max="1" step="0.01" value="0.18">
+        <input type="range" id="volumeRange" min="0" max="1" step="0.01" value="0.12">
       </div>
     </div>
 
@@ -319,16 +320,15 @@
 
     <div class="center">
       <div class="username">xen</div>
-      <div class="motto">my honor</div>
+      <div class="motto">Meine Ehre Heisst Treue</div>
 
       <div class="profile-pill">
         <div class="avatar-wrap">
           <img src="avatar.png" alt="avatar" class="avatar">
           <div class="avatar-badge">
-            <!-- red prohibition icon -->
             <svg viewBox="0 0 24 24" fill="none">
               <circle cx="12" cy="12" r="10" fill="#e53935"/>
-              <rect x="6" y="10.5" width="12" height="3" rx="1.5" fill="white"/>
+              <rect x="5.5" y="10.2" width="13" height="3.6" rx="1.8" fill="white"/>
             </svg>
           </div>
         </div>
@@ -339,7 +339,7 @@
               <img src="leaf.png" alt="" class="leaf-icon"> 505
             </span>
           </div>
-          <div class="pill-status">currently doing nothing</div>
+          <div class="pill-status">Praising Adolf Hitler</div>
         </div>
       </div>
 
@@ -369,8 +369,8 @@
     const iconUnmuted = document.getElementById('icon-unmuted');
     const iconMuted = document.getElementById('icon-muted');
 
-    video.volume = 0.18;
-    volumeRange.value = 0.18;
+    video.volume = 0.12;
+    volumeRange.value = 0.12;
     video.pause();
 
     overlay.addEventListener('click', () => {
@@ -394,7 +394,7 @@
       e.stopPropagation();
       if (video.muted || video.volume === 0) {
         video.muted = false;
-        video.volume = volumeRange.value || 0.18;
+        video.volume = volumeRange.value || 0.12;
         iconUnmuted.style.display = 'block';
         iconMuted.style.display = 'none';
       } else {
